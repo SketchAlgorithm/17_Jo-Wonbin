@@ -19,7 +19,7 @@ int poly(int top, int bottom) {
 
 	for (int i = bottom; i > 0; i--) {
 		cnt = top == 0 ? 1 : (i + top - 1);
-		ret += (cnt * polo(i, bottom - i)) % MOD;
+		ret += (cnt * poly(i, bottom - i)) % MOD;
 		ret %= MOD;
 	}
 	return ret % MOD;	
