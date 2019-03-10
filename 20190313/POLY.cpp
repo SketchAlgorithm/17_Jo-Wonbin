@@ -7,7 +7,7 @@ constexpr auto MOD = 10000000;
 int cache[101][101];
 int n,C;
 
-int polo(int top, int bottom) {
+int poly(int top, int bottom) {
 	
 	if (bottom == 0) return 1;
 
@@ -33,6 +33,6 @@ int main() {
 			for (int j = 0; j < 101; j++)
 				cache[i][j] = -1;
 		cin >> n;
-		cout << polo(0, n) << endl;
+		cout << poly(0, n) << endl;
 	}
 }
