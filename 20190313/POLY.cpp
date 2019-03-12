@@ -22,7 +22,7 @@ int poly(int top, int bottom) {
 		ret += (cnt * poly(i, bottom - i)) % MOD;
 		ret %= MOD;
 	}
-	return ret % MOD;	
+	return ret;	
 
 }
 
