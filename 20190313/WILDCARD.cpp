@@ -42,7 +42,7 @@ bool match(int w, int n) {
 	if (ret != -1)
 		return ret;
 
-
+	/*
 	if (n < N.size() && w < W.size() && (W[w] == N[n] || W[w] == '?'))
 		return ret = match(w + 1, n + 1);
 	
@@ -52,8 +52,25 @@ bool match(int w, int n) {
 		return ret = (n != N.size() && match(w, n + 1)) || match(w + 1, n);
 	
 	return ret = false;
+	*/
 	
 
+	f (w == W.size()) 
+		return n == N.size();
+	
+	if (n == N.size())
+		return false;
+
+	if (W[w] == '*')
+		return match(w + 1, n) || match(w, n + 1);
+	
+	if (W[w] == N[n] || W[w] == '?')
+		return match(w + 1, n + 1);
+	
+	return false;
+	
+	
+	
 	/*if (w < W.size() && n < N.size() &&
 		(W[w] == N[n] || W[w] == '?')) {
 		return ret = match(w + 1, n + 1);
