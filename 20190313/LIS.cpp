@@ -12,6 +12,17 @@ int getIdx(int val) {
 	return lower_bound(s.begin(), s.end(), val) - s.begin();
 }
 
+int dp(int start){
+	int& ret = cache[start];
+	if(ret != -1) return ret;
+	
+	for(int i = start+1; i < n; i++){
+		if(s[start] < s[i])
+			ret = max(ret , 1+ dp(i));
+	}
+	return ret;
+}
+
 void solve() {
 	int idx;
 	for (int i = 0; i < A.size(); i++) {
