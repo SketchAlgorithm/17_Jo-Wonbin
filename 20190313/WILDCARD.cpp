@@ -55,7 +55,7 @@ bool match(int w, int n) {
 	*/
 	
 
-	f (w == W.size()) 
+	if (w == W.size()) 
 		return n == N.size();
 	
 	if (n == N.size())
