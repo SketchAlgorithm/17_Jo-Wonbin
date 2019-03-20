@@ -14,10 +14,9 @@ int main() {
 	cin >> B >> C;
 	long long ans = N;
 	for (int i = 0; i < N; i++)
-		if (A[i] - B > 0)
-			ans += (A[i] - B + C - 1) / C;
-
-	cout << ans;
-
+		ans = A[i] - B > 0 ? ans + (A[i] - B + C - 1) / C : ans;
+	
+	cout << ans
+;
 
 }
