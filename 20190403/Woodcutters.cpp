@@ -2,7 +2,7 @@
 #include<vector>
 using namespace std;
 
-int pos, h, n, ans;
+int pos, h, n, ans = 2;
 vector<pair<int, int>> x;
 
 int main() {
@@ -13,7 +13,7 @@ int main() {
 		cin >> h;
 		x.push_back(make_pair(pos, h));
 	}
-	ans = ans > 1 ? 2 : 1;
+	ans = ans > 1 ? ans : 1;
 	for (int i = 1; i < n - 1; i++) {
 		if (x[i - 1].first < x[i].first - x[i].second) {
 			ans++;
