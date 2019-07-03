@@ -1,6 +1,3 @@
-//7730 ³ª¹«±ð´Â È«ÁØ
-//https://www.swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWq43PI6L64DFARG&categoryId=AWq43PI6L64DFARG&categoryType=CODE
-
 #include<iostream>
 #include<algorithm>
 
@@ -12,10 +9,11 @@ int tree[1000001];
 int search(int l, int r) {
 
 	if (r == l) return l - 1;
-	int m = 0, middle = (r + l) / 2;
-	for (int i = 0; i < N; i++) {
+	long long m = 0;
+	int middle = (r + l) / 2;
+	for (int i = 0; i < N; i++) 
 		m += max(0, tree[i] - middle);
-	}
+	
 	if (m > M)
 		return search(middle + 1, r);
 	else if (m < M)
