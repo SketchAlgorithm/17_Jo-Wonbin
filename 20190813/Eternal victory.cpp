@@ -1,74 +1,61 @@
 #include<iostream>
-#include<set>
+#include<vector>
+#include<queue>
 #include<algorithm>
-#define MAX 200001
-typedef long long ll;
+#define MAX 100000
+#define ROOT 1
 using namespace std;
+typedef long long ll;
 
-ll segment[4 * MAX], lazy[4 * MAX], a[MAX], b[MAX];
-int n, q, l, r, input;
-ll ans = 0;
-inline bool cmp(ll& lv, ll& rv) { return lv > rv; }
-
-void update_lazy(int node, int left, int right) {
-	if (lazy[node] == 0) return;
-
-	segment[node] += lazy[node] * (right - left + 1);
-	if (left != right) {
-		lazy[2 * node] += lazy[node];
-		lazy[2 * node + 1] += lazy[node];
-	}
-	lazy[node] = 0;
+struct Node {
+	ll dist;
+	int weight;
+	int n;
+	Node(ll dist, int weight, int n) 
+		: dist(dist), weight(weight), n(n) {}
+};
+//priority_queue 사용을 위한 연산자 정의
+bool operator<(const Node& lv, const Node& rv) {
+	return lv.dist > rv.dist;
 }
 
-ll update(int lo, int hi, ll value, int node, int left, int right) {
-	update_lazy(node, left, right);
-	if (right < lo || hi < left) {
-		return segment[node];
-	}
-	if (lo <= left && right <= hi) {
-		lazy[node] += value;
-		update_lazy(node, left, right);
-		return segment[node];
-	}
 
-	int mid = (left + right) / 2;
-	return segment[node] = update(lo, hi, value, 2 * node, left, mid)
-		+ update(lo, hi, value, 2 * node + 1, mid + 1, right);
-}
-
-ll query(int lo, int hi, int node, int left, int right) {
-	update_lazy(node, left, right);
-	if (right < lo || hi < left) {
-		return 0;
-	}
-	if (lo <= left && right <= hi) {
-		return segment[node];
-	}
-	int mid = (left + right) / 2;
-	return query(lo, hi, 2 * node, left, mid) 
-		+ query(lo, hi, 2 * node + 1, mid + 1, right);
-
-}
+int n, x, y, w;
+bool visited[MAX + 1] = { true, };
+vector<pair<int, int>> adj[MAX + 1];
+priority_queue<Node> q;
 
 int main() {
-	cin >> n >> q;
-	for (int i = 0; i < n; i++) {
-		scanf("%d", &a[i]);
+	scanf("%d", &n);
+	for (int i = 0; i < n - 1; i++) {
+		scanf("%d %d %d", &x, &y, &w);
+		adj[x].push_back(make_pair(y, w));
+		adj[y].push_back(make_pair(x, w));
 	}
-	for (int i = 0; i < q; i++) {
-		scanf("%d %d", &l, &r);
-		update(l, r, 1, 1, 1, n);	
+
+	q.push(Node(0, 0, 1));
+	ll dist;
+	ll ans = 0;
+
+	while (q.size() != 0) {
+		int node = q.top().n;
+		int weight = q.top().weight;
+		dist = q.top().dist;
+		visited[node] = true;
+		q.pop();
+
+		for (auto iter = adj[node].begin(); iter != adj[node].end(); iter++) {
+			int child = (*iter).first;
+			if (visited[child]) continue;
+			int weight = (*iter).second;
+
+			q.push(Node((dist + weight), weight, child));
+			ans += weight;
+		}
 	}
-	for (int i = 1; i < n + 1; i++) {
-		b[i] = query(i, i, 1, 1, n);
-	}
-	sort(a, a + n + 1, cmp);
-	sort(b, b + n + 1, cmp);
-	for (int i = 0; i < n; i++) {
-		ans += a[i] * b[i];
-	}
-	cout << ans;
+	cout << ans * 2 - dist;
+	
+	
+
 	
 }
-
