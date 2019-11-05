@@ -5,14 +5,14 @@ using namespace std;
 int C;
 char input;
 
-string dq() {
+string dc() {
 	char t;
 	string tree[4];
 	
 	for (int i = 0; i < 4; i++) {
 		cin >> t;
 		if (t == 'x') 
-			tree[i] = t + dq();
+			tree[i] = t + dc();
 		else 
 			tree[i] = t;
 	}
